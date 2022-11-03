@@ -1,98 +1,73 @@
-#include <stdio.h>  
-# define max 6
-
-typedef struct{
-    int queue[max];
-    int front;  
-    int rear;
-}queue;
-     
-// function to insert an element in a circular queue  
-void enqueue(queue *q, int element)  
-    {  
-        if(q->front==-1 && q->rear==-1)   // condition to check queue is empty  
-        {  
-            q->front=0;  
-            q->rear=0;  
-            q->rear = element;  
-        }  
-        else if((q->rear+1)%max==q->front)  // condition to check queue is full  
-        {  
-            printf("Queue is overflow..");  
-        }  
-        else  
-        {  
-            q->rear=(q->rear+1)%max;       // rear is incremented  
-            q->rear = element;     // assigning a value to the queue at the rear position.  
-        }  
-    }  
-      
-    // function to delete the element from the queue  
-    int dequeue(queue *q)  
-    {  
-        if((q->front==-1) && (q->rear==-1))  // condition to check queue is empty  
-        {  
-            printf("\nQueue is underflow..");  
-        }  
-     else if(q->front==q->rear)  
-    {  
-       printf("\nThe dequeued element is %d", q->front);  
-       q->front=-1;  
-       q->rear=-1;  
-    }   
-    else  
-    {  
-        printf("\nThe dequeued element is %d", q->front);  
-        q->front=(q->front+1)%max;  
-    }  
-    }  
-    // function to display the elements of a queue  
-    void display(queue q)  
-    {  
-        if(q.front==-1 && q.rear==-1)  
-        {  
-            printf("\n Queue is empty..");  
-        }  
-        else  
-        {  
-            printf("\nElements in a Queue are :");  
-            for(int i=q.front;i!=q.rear;i=i+1%max){
-                printf("%d\n",q.front);
-            }
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+typedef struct 
 {
-printf("%d\n",q.x[i]);
+	char arr[5];
+	int front;
+	int rear;
+	int count;
+}Queue;
+void insertq(Queue *q,char ele)
+{
+	if(q->count==5)
+		printf("QUEUE FULL\n");
+	else
+	{
+		q->rear=(q->rear+1)%5;
+		q->arr[q->rear]=ele;
+		q->count++;
+	}
 }
-        }  
-    }  
-    int main()  
-    {  
-        int choice=1,x;   // variables declaration  
-        queue q;
-        q.front = -1;
-        q.rear = -1;
-        while(choice<4 && choice!=0)   // while loop  
-        {  
-        printf("\n Press 1: Insert an element");  
-        printf("\nPress 2: Delete an element");  
-        printf("\nPress 3: Display the element");  
-        printf("\nEnter your choice\n");  
-        scanf("%d", &choice);  
-          
-        switch(choice)  
-        {  
-              
-            case 1:  
-          
-            printf("Enter the element which is to be inserted: ");  
-            scanf("%d", &x);  
-            enqueue(&q, x);  
-            break;  
-            case 2:  
-            dequeue(&q);  
-            break;  
-            case 3:  
-            display(q);  
-      
-        }}  
-        return 0;  
-    }  
+void deleteq(Queue *q)
+{
+	if(q->count==0)
+		printf("QUEUE EMPTY\n");
+	else
+		{
+			q->front=(q->front+1)%5;
+			q->count--;
+		}
+}
+void displayq(Queue *q)
+{
+	if(q->count==0)
+		printf("QUEUE EMPTY\n");
+	else
+	{
+		for(int i=1,f=q->front;i<=q->count;i++)
+		{
+			printf("%c\n",q->arr[f] );
+			f=(f+1)%5;			
+		}
+	}
+}
+void main()
+{
+	Queue q1,*q;
+	q=&q1;
+	q->front=0;
+	q->rear=-1;
+	int j,ch;
+	q->count=0;
+	char ele;
+	for(;;)
+	{
+		printf("Enter choice 1)INSERT 2)DELETE 3)DISPLAY 4)EXIT\n");
+		scanf("%d",&ch);
+		if(ch==1)
+			{
+				printf("Enter char\n");
+				scanf(" %c",&ele);
+				insertq(q,ele);
+			}
+		else if(ch==2)
+				deleteq(q);
+				
+		else if(ch==3)
+				displayq(q);
+		else
+			exit(0);
+				
+	}
+}

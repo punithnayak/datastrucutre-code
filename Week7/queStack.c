@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
     printf("Enter Queue: ");
     for (int i = 0; i < n; i++)
     {
-        push(&s1);
+        push(&s1);   
     }
     for (int i = 0; i < n; i++)
     {
