@@ -48,22 +48,16 @@ node *delete(node* head, int value){
 }
 
 node *del(node* head){
-    node *prev = NULL, *temp = NULL;
-    temp = head->next;
-    prev = head;
-    while (temp != NULL)
-    {
-        if (temp->data == prev->data)
-        {
-            prev = prev->next;
-            head = delete(head, temp->data);
-            temp = temp->next;
+    if(head==NULL)return NULL;
+    struct node* temp=head,*nextnode;
+    while(temp->next!=0){
+        if(temp->data==temp->next->data){
+            nextnode=temp->next->next;
+            free(temp->next);
+            temp->next=nextnode;
         }
-        else{
-            temp = temp->next;
-            prev = prev->next;
-        }
-        
+        else
+        temp=temp->next;
     }
     return head;
 }
